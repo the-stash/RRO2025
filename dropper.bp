@@ -1,0 +1,10 @@
+flag = 1
+Program.Delay(750)
+LCD.Clear()
+While flag = 1
+  If Sensor4.Raw1() < 95 Then
+    Motor.Move("A", -7, 210, "true")
+    flag = 0
+  EndIf
+  LCD.Text(1, 0, 0, 2, EV3.BatteryVoltage)
+EndWhile
