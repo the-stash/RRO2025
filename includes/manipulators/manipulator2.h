@@ -30,13 +30,13 @@ task initManipRight() {
 
 void floorGrabRight(bool afk = false) {
 	manipKc2 = 1;
-	manipPos2 = -360;
+	manipPos2 = -375;
 	if (afk) {stopBC(400);}
 }
 
 void openRightNotFull(bool afk = false) {
-	manipKc2 = 0.5;
-	manipPos2 = -510;
+	manipKc2 = 0.1;
+	manipPos2 = -520;
 	if (afk) {stopBC(400);}
 }
 
@@ -58,16 +58,27 @@ void openFullRightLowLowSpeed(bool afk = false) {
 	if (afk) {stopBC(400);}
 }
 
+void closeFullRightLowSpeed(bool afk = false) {
+	manipKc2 = 0.15;
+	manipPos2 = 550;
+	if (afk) {stopBC(400);}
+}
+
 void liftSomeRight(bool afk = false) {
 	manipKc2 = 0.65;
 	manipPos2 = -170;
 	if (afk) {stopBC(400);}
 }
 
-void liftSomeRight2(bool afk = false) {
-	manipKc2 = 0.25;
-	manipPos2 = -210;
-	if (afk) {stopBC(400);}
+void liftContRight(int size, bool afk = false) {
+	if (size == 0) {
+		manipKc2 = 0.15;
+		manipPos2 = -170;
+	} else {
+		manipKc2 = 0.36;
+		manipPos2 = -210;
+	}
+	if (afk) {stopBC(425);}
 }
 
 void closeFullRight(bool afk = false) {

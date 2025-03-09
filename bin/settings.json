@@ -1,0 +1,8 @@
+{
+    "files.associations": {
+        "hitechnic-sensormux.h": "c",
+        "common-light.h": "c",
+        "common.h": "c",
+        "sensors.h": "c"
+    }
+}

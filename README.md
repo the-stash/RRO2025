@@ -1,2 +1,1 @@
-RobotC source code for RRO 2025.
-Devs: @stashevskii @Leshechkagit
+Source code for RRO2025 in C. Devs: @stashevskii and @Leshechkagit

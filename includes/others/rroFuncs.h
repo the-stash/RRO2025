@@ -1,4 +1,6 @@
-const float shipTurn = 68.5;
+float shipTurn = 68;
+const float copyST = 68;
+const float turnPower = 55;
 
 void r() {
     stopBC(2.5);
@@ -48,7 +50,7 @@ void takeDuoCells() {
     driveCM(55, 17, 20, 40);
     closeFullLeft();
     closeFullRight(true);
-    driveCM(55, -16, 20, 40);
+    driveCM(55, -14.5, 20, 40);
 }
 
 void takeDuoManips() {
@@ -85,81 +87,50 @@ void takeLeftManip() {
 }
 
 void right0left1() {
-    turnOneMotor(leftMotor, 70, shipTurn, 35, 25);
-    turnOneMotor(rightMotor, 70, shipTurn, 35, 25);
+    turnOneMotor(leftMotor, turnPower, shipTurn, 35, 25);
+    turnOneMotor(rightMotor, turnPower, shipTurn, 35, 25);
     toShipRun();
     openLeftNotFull();
     openRightNotFull(true);
     driveCM(65, -6, 30, 30);
-    turnOneMotor(rightMotor, 70, -shipTurn, 35, 25);
-    turnOneMotor(leftMotor, 70, -shipTurn, 35, 25);
+    turnOneMotor(rightMotor, turnPower, -shipTurn, 35, 25);
+    turnOneMotor(leftMotor, turnPower, -shipTurn, 35, 25);
 }
 
 void right1left0() {
-    turnOneMotor(rightMotor, 70, shipTurn, 35, 25);
-    turnOneMotor(leftMotor, 70, shipTurn, 35, 25);
+    turnOneMotor(rightMotor, turnPower, shipTurn, 35, 25);
+    turnOneMotor(leftMotor, turnPower, shipTurn, 35, 25);
     toShipRun();
     openLeftNotFull();
     openRightNotFull(true);
     driveCM(65, -5, 30, 30);
-    turnOneMotor(leftMotor, 70, -shipTurn, 35, 25);
-    turnOneMotor(rightMotor, 70, -shipTurn, 35, 25);
+    turnOneMotor(leftMotor, turnPower, -shipTurn, 35, 25);
+    turnOneMotor(rightMotor, turnPower, -shipTurn, 35, 25);
 }
 
 void twoSituations(bool big) {
-    turnOneMotor(leftMotor, 70, shipTurn, 35, 25);
-    turnOneMotor(rightMotor, 70, shipTurn, 35, 25);
-    toShipRun();
+    if (big) {shipTurn += 2;}
+    turnOneMotor(leftMotor, turnPower, shipTurn, 35, 25);
+    if (big) {shipTurn -= 3;}
+    turnOneMotor(rightMotor, turnPower, shipTurn, 35, 25);
+    toShipRun(55);
     if (big) {openLeftNotFull(true);}
     else {openRightNotFull(true);}
     driveCM(75, -5, 60, 60);
-    turnOneMotor(rightMotor, 70, -shipTurn, 35, 25);
-    turnOneMotor(leftMotor, 70, -shipTurn, 35, 25);
+    turnOneMotor(rightMotor, turnPower, -shipTurn, 35, 25);
+    turnOneMotor(leftMotor, turnPower, -shipTurn, 35, 25);
     if (big) {closeFullLeft();}
     else {closeFullRight();}
-    turnOneMotor(rightMotor, 70, shipTurn, 35, 25);
-    turnOneMotor(leftMotor, 70, shipTurn, 35, 25);
+    if (big) {shipTurn -= 5;}
+    turnOneMotor(rightMotor, turnPower, shipTurn, 35, 25);
+    turnOneMotor(leftMotor, turnPower, shipTurn, 35, 25);
     toShipRun(250);
     if (big) {openRightNotFull(true);}
     else {openLeftNotFull(true);}
     driveCM(75, -5, 60, 60);
-    turnOneMotor(leftMotor, 70, -shipTurn, 35, 25);
-    turnOneMotor(rightMotor, 70, -shipTurn, 35, 25);
-}
-
-void leaveRubbishCellsR(bool fr, bool fl) {
-    driveCM(62, -10, 25, 30);
-    if (fr) {closeFullRight();}
-    if (fl) {closeFullLeft();}
-    liftSomeRight2(true);
-    driveCM(62, 10, 25, 30);
-    turnOneMotor(rightMotor, 50, 30, 50, 50);
-    turnOneMotor(rightMotor, 50, -30, 50, 50);
-}
-
-void leaveRubbishCellsL(bool fr, bool fl) {
-    driveCM(62, -10, 25, 30);
-    if (fr) {closeFullRight();}
-    if (fl) {closeFullLeft();}
-    liftSomeLeft2(true);
-    driveCM(62, 10, 25, 30);
-    turnOneMotor(leftMotor, 50, 30, 50, 50);
-    turnOneMotor(leftMotor, 50, -30, 50, 50);
-}
-
-void sortRubbish(int *elements) {
-    bool mflagl = false;
-    bool mflagr = false;
-    for (int i = 3; i > -1; i--) {
-        if (elements[i] == -1) {
-            if (i == 2) {driveCM(60, 4, 60, 60); openFullLeft(true); driveCM(60, -4, 60, 60); mflagl = true;} 
-            if (i == 3) {driveCM(60, 4, 60, 60); openFullRight(true); driveCM(60, -4, 60, 60); mflagr = true;}
-            if (i == 1) {leaveRubbishCellsR(mflagr, mflagl);}
-            if (i == 0) {leaveRubbishCellsL(mflagr, mflagl);}
-        }
-    }
-    driveCM(65, -13, 25, 30);
-    turnLineRight(40, 70, 25);
+    turnOneMotor(leftMotor, turnPower, -shipTurn, 35, 25);
+    turnOneMotor(rightMotor, turnPower, -shipTurn, 35, 25);
+    shipTurn = copyST;
 }
 
 void leaveCubes(int *heights, int *cols, int i) {
@@ -169,16 +140,16 @@ void leaveCubes(int *heights, int *cols, int i) {
             peak();
             openFullRightLowLowSpeed(true);
             delay(waiting);
-            closeFullRight(true);
+            closeFullRightLowSpeed(true);
             delay(waiting);
             openFullRightLowLowSpeed(true);
             delay(waiting);
-            closeFullRight(true);
+            closeFullRightLowSpeed(true);
         }
         else {
             openFullRightLowLowSpeed(true);
             delay(waiting);
-            closeFullRight(true);
+            closeFullRightLowSpeed(true);
         }
     }
 }

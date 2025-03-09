@@ -23,7 +23,7 @@ void toCubes() {
     turnLine180(80);
     stopBC(150);
     lineCM(70, 10, 35, 30);
-    turnOneMotor(leftMotor, 45, -0.4, 45, 45);
+    turnOneMotor(leftMotor, 15, -1, 45, 45);
     driveCM(85, -15.5, 30, 30);
     driveCM(40, -46.5, 30, 30);
     stopBC(1950);
@@ -129,10 +129,10 @@ void grab4() {
 
 void sortInShip() {
     stopBC(100);
-    turnLine180(75);
+    turnLine180(65);
     align();
-    liftSomeLeft2();
-    liftSomeRight2(true);
+    liftContLeft(manipLeft);
+    liftContRight(manipRight, true);
     lineCM(80, 26, 50, 50);
     driveCM(65, -15, 50, 50);
     stopBC(100);
@@ -145,7 +145,7 @@ void sortInShip() {
     else if (manipRight == 1 && manipLeft == 1) {twoSituations(true);} 
     else {twoSituations(false);}
 
-    turnLine180(55);
+    turnLine180(55, 150, 30);
     align();
     openFullLeft();
     openFullRight(true);
@@ -158,9 +158,9 @@ void sortInShip() {
 
     if (manipRight == cellRight && manipLeft == cellLeft) {swapConts();}
 
-    liftSomeLeft2();
-    liftSomeRight2(true);
-    XCross(75, 1, 35);
+    liftContLeft(cellLeft);
+    liftContRight(cellRight, true);
+    XCross(75, 1, 35, true, 7);
     stopBC(100);
 
     if (cellRight == 0 && cellLeft == 1) {right0left1();}
@@ -170,7 +170,9 @@ void sortInShip() {
     turnLine180(55);
     align();
 
-    XCross(85, 3, 35);
+    XCross(85, 1, 35);
+    XCross(85, 1, 85);
+    XCross(35, 1, 85);
 }
 
 void runner() {
